@@ -18,4 +18,8 @@
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>nu.peg.slack.pt.App</listener-class>
+    </listener>
 </web-app>
