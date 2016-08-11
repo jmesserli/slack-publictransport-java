@@ -1,7 +1,11 @@
 package nu.peg.slack.pt.endpoint;
 
+import nu.peg.slack.pt.api.transport.TransportApi;
+import nu.peg.slack.pt.api.transport.model.Location;
 import nu.peg.slack.pt.model.Response;
 import nu.peg.slack.pt.service.OauthService;
+
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,12 +31,15 @@ public class SlackEndpoint {
         }
     }
 
-    @POST
+    @GET
     @Path("connections")
-    public void connections() {
+    public Response<List<Location>> connections() {
         // TODO call Service
 
-        return;
+        TransportApi api = new TransportApi();
+        List<Location> locations = api.queryLocation("wander");
+
+        return Response.ok(locations);
     }
 
     @POST
