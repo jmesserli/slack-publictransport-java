@@ -2,13 +2,13 @@ package nu.peg.slack.pt.api.transport.model;
 
 public class Section {
     private Journey journey;
-    private String walk;
+    private Walk walk;
     private Checkpoint departure, arrival;
 
     public Section() {
     }
 
-    public Section(Journey journey, String walk, Checkpoint departure, Checkpoint arrival) {
+    public Section(Journey journey, Walk walk, Checkpoint departure, Checkpoint arrival) {
         this.journey = journey;
         this.walk = walk;
         this.departure = departure;
@@ -23,11 +23,11 @@ public class Section {
         this.journey = journey;
     }
 
-    public String getWalk() {
+    public Walk getWalk() {
         return walk;
     }
 
-    public void setWalk(String walk) {
+    public void setWalk(Walk walk) {
         this.walk = walk;
     }
 

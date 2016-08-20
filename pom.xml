@@ -12,6 +12,7 @@
 
     <build>
         <finalName>slack-publictransport</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -43,9 +44,12 @@
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
         </dependency>
+
+        <!-- Jackson JSON because MOXy fails with nested generics? -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.23.2</version>
         </dependency>
 
         <dependency>
@@ -66,6 +70,7 @@
             <version>2.7</version>
         </dependency>
     </dependencies>
+
     <properties>
         <jersey.version>2.23.2</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
