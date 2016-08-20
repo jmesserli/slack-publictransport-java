@@ -3,6 +3,7 @@ package nu.peg.slack.pt.endpoint;
 import nu.peg.slack.pt.model.Response;
 import nu.peg.slack.pt.service.OauthService;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,12 +14,13 @@ import javax.ws.rs.QueryParam;
 @Produces("application/json")
 public class SlackEndpoint {
 
+    @Inject
+    private OauthService oauthService;
+
     @GET
     @Path("oauth")
     public Response<String> oauth(@QueryParam("code") String code) {
-        // TODO DI?
-        OauthService os = new OauthService();
-        String token = os.authorize(code);
+        String token = oauthService.authorize(code);
 
         if (token == null) {
             return Response.error("Invalid code");

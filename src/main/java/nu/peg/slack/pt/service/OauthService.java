@@ -10,15 +10,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static nu.peg.slack.pt.App.config;
-
 public class OauthService {
 
     private String clientId, clientSecret;
 
-    public OauthService() {
-        clientId = config.getProperty("slack.client.id");
-        clientSecret = config.getProperty("slack.client.secret");
+    public OauthService(String clientId, String clientSecret) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
     }
 
     /**
