@@ -25,7 +25,6 @@ public class App implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
         try {
             Unirest.shutdown();
         } catch (IOException e) {

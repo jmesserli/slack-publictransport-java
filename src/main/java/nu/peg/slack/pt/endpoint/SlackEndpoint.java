@@ -1,7 +1,10 @@
 package nu.peg.slack.pt.endpoint;
 
+import nu.peg.slack.pt.api.transport.model.Connection;
 import nu.peg.slack.pt.model.Response;
 import nu.peg.slack.pt.service.OauthService;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -31,7 +34,7 @@ public class SlackEndpoint {
 
     @GET
     @Path("connections")
-    public Response<Void> connections() {
+    public Response<List<Connection>> connections() {
         // TODO call Service
 
         return Response.ok(null);
