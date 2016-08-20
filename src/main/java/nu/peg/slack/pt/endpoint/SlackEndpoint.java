@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 @Path("v1")
-@Produces("application/json;charset=UTF-8")
+@Produces("application/json")
 public class SlackEndpoint {
 
     @GET
@@ -27,12 +27,12 @@ public class SlackEndpoint {
         }
     }
 
-    @POST
+    @GET
     @Path("connections")
-    public void connections() {
+    public Response<Void> connections() {
         // TODO call Service
 
-        return;
+        return Response.ok(null);
     }
 
     @POST
