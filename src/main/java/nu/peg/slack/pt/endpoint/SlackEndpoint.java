@@ -1,12 +1,14 @@
 package nu.peg.slack.pt.endpoint;
 
-import nu.peg.slack.pt.api.transport.model.Connection;
+import nu.peg.slack.pt.App;
+import nu.peg.slack.pt.api.slack.model.CommandPostData;
 import nu.peg.slack.pt.model.Response;
+import nu.peg.slack.pt.service.ConnectionService;
 import nu.peg.slack.pt.service.OauthService;
 
-import java.util.List;
-
 import javax.inject.Inject;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,8 +19,14 @@ import javax.ws.rs.QueryParam;
 @Produces("application/json")
 public class SlackEndpoint {
 
-    @Inject
     private OauthService oauthService;
+    private ConnectionService connectionService;
+
+    @Inject
+    public SlackEndpoint(OauthService oauthService, ConnectionService connectionService) {
+        this.oauthService = oauthService;
+        this.connectionService = connectionService;
+    }
 
     @GET
     @Path("oauth")
@@ -32,12 +40,16 @@ public class SlackEndpoint {
         }
     }
 
-    @GET
+    @POST
     @Path("connections")
-    public Response<List<Connection>> connections() {
-        // TODO call Service
+    @Consumes("application/x-www-form-urlencoded")
+    public void connections(@BeanParam CommandPostData commandData) {
+        boolean validToken = App.validateToken(commandData.getToken());
+        if (!validToken) {
+            return;
+        }
 
-        return Response.ok(null);
+//        connectionService
     }
 
     @POST

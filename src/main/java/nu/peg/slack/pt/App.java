@@ -12,6 +12,10 @@ public class App implements ServletContextListener {
 
     public static Properties config;
 
+    public static boolean validateToken(String token) {
+        return config.get("slack.server.token").equals(token);
+    }
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         config = new Properties();

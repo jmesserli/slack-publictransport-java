@@ -11,12 +11,15 @@ import nu.peg.slack.pt.api.transport.model.ConnectionsResponse;
 import nu.peg.slack.pt.api.transport.model.Location;
 import nu.peg.slack.pt.api.transport.model.LocationsResponse;
 
+import org.jvnet.hk2.annotations.Service;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class TransportApi {
 
     private Gson gson;
