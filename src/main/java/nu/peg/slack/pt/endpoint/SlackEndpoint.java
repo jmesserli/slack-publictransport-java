@@ -16,6 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import static javax.ws.rs.core.Response.Status;
+import static javax.ws.rs.core.Response.status;
+
 @Path("v1")
 @Produces("application/json")
 public class SlackEndpoint {
@@ -46,13 +49,15 @@ public class SlackEndpoint {
     @POST
     @Path("connections")
     @Consumes("application/x-www-form-urlencoded")
-    public void connections(@BeanParam CommandPostData commandData) {
+    public javax.ws.rs.core.Response connections(@BeanParam CommandPostData commandData) {
         boolean validToken = App.validateToken(commandData.getToken());
         if (!validToken) {
-            return;
+            return status(Status.UNAUTHORIZED).build();
         }
 
-//        connectionService
+        connectionService.handleCommand(commandData);
+
+        return status(200).build();
     }
 
     @POST

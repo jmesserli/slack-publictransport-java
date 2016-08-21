@@ -1,18 +1,15 @@
 package nu.peg.slack.pt.service;
 
-import nu.peg.slack.pt.api.transport.TransportApi;
+import nu.peg.slack.pt.api.slack.model.CommandPostData;
+import nu.peg.slack.pt.api.slack.model.SlackMessage;
+import nu.peg.slack.pt.api.transport.model.Connection;
+import nu.peg.slack.pt.model.ConnectionRequest;
 
-import org.jvnet.hk2.annotations.Service;
+public interface ConnectionService {
 
-import javax.inject.Inject;
+    public void handleCommand(CommandPostData commandData);
 
-@Service
-public class ConnectionService {
+    public SlackMessage makeConnectionOverview(ConnectionRequest request);
 
-    private TransportApi transportApi;
-
-    @Inject
-    public ConnectionService(TransportApi transportApi) {
-        this.transportApi = transportApi;
-    }
+    public SlackMessage makeConnectionDetail(Connection connection);
 }

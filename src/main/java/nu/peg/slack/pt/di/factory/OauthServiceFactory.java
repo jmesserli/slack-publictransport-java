@@ -1,5 +1,6 @@
 package nu.peg.slack.pt.di.factory;
 
+import nu.peg.slack.pt.service.internal.DefaultOauthService;
 import nu.peg.slack.pt.service.OauthService;
 
 import org.glassfish.hk2.api.Factory;
@@ -13,7 +14,7 @@ public class OauthServiceFactory implements Factory<OauthService> {
         String clientId = config.getProperty("slack.client.id");
         String clientSecret = config.getProperty("slack.client.secret");
 
-        return new OauthService(clientId, clientSecret);
+        return new DefaultOauthService(clientId, clientSecret);
     }
 
     @Override
