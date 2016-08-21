@@ -1,6 +1,7 @@
 package nu.peg.slack.pt.endpoint;
 
 import nu.peg.slack.pt.App;
+import nu.peg.slack.pt.api.slack.SlackApi;
 import nu.peg.slack.pt.api.slack.model.CommandPostData;
 import nu.peg.slack.pt.model.Response;
 import nu.peg.slack.pt.service.ConnectionService;
@@ -21,11 +22,13 @@ public class SlackEndpoint {
 
     private OauthService oauthService;
     private ConnectionService connectionService;
+    private SlackApi slackApi;
 
     @Inject
-    public SlackEndpoint(OauthService oauthService, ConnectionService connectionService) {
+    public SlackEndpoint(OauthService oauthService, ConnectionService connectionService, SlackApi slackApi) {
         this.oauthService = oauthService;
         this.connectionService = connectionService;
+        this.slackApi = slackApi;
     }
 
     @GET
