@@ -30,7 +30,7 @@ public class SlackApi {
             e.printStackTrace();
         }
 
-        return stringResponse.getStatus() == 200;
+        return stringResponse != null && stringResponse.getStatus() == 200;
     }
 
 }

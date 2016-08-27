@@ -13,8 +13,13 @@ import nu.peg.slack.pt.service.LocationService;
 import nu.peg.slack.pt.util.CommandParser;
 
 import org.jvnet.hk2.annotations.Service;
+import org.omg.CORBA.Request;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -52,7 +57,7 @@ public class ThreadedConnectionService implements ConnectionService {
 
         private CommandPostData commandData;
 
-        public ConnectionServiceRunnable(CommandPostData commandData) {
+        ConnectionServiceRunnable(CommandPostData commandData) {
             this.commandData = commandData;
         }
 
@@ -69,12 +74,32 @@ public class ThreadedConnectionService implements ConnectionService {
                 return;
             }
 
+            LocalTime time = LocalTime.now();
+            boolean isArrivalTime = false;
+
+            if (args.size() >= 3) {
+                Pattern timePattern = Pattern.compile("([0-1]?\\d|2[0-3]):([0-5]\\d)(an|ab)");
+                Matcher matcher = timePattern.matcher(args.get(2));
+
+                if (matcher.matches()) {
+                    time = LocalTime.of(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)));
+                    isArrivalTime = matcher.group(3).equals("an");
+                } else {
+                    sendError("Das Format der Zeit war nicht gültig.\nBeispiele: 12:30ab, 11:09an");
+                    return;
+                }
+            }
+
             Locations locations = locationService.queryLocations(args.get(0), args.get(1));
             if (!locations.isUnique()) {
                 SlackMessage refinementMessage = locationService.makeRefinementMessage(locations);
                 slackApi.sendResponse(commandData.getResponseUrl(), refinementMessage);
                 return;
             }
+
+            ConnectionRequest request = new ConnectionRequest(locations, time, isArrivalTime);
+            SlackMessage connectionOverviewMessage = makeConnectionOverview(request);
+            slackApi.sendResponse(commandData.getResponseUrl(), connectionOverviewMessage);
         }
     }
 }

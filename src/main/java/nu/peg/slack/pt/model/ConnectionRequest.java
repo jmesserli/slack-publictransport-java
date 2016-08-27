@@ -1,10 +1,10 @@
 package nu.peg.slack.pt.model;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class ConnectionRequest {
 
     private Locations locations;
-    private LocalDateTime time;
+    private LocalTime time;
     private boolean isArrivalTime;
 
     public ConnectionRequest(Locations locations) {
         this.locations = locations;
-        time = LocalDateTime.now();
+        time = LocalTime.now();
         isArrivalTime = false;
     }
 
