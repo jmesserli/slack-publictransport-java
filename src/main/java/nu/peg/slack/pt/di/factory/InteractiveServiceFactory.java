@@ -1,7 +1,6 @@
 package nu.peg.slack.pt.di.factory;
 
 import nu.peg.slack.pt.api.slack.SlackApi;
-import nu.peg.slack.pt.api.transport.TransportApi;
 import nu.peg.slack.pt.service.ConnectionService;
 import nu.peg.slack.pt.service.InteractiveService;
 import nu.peg.slack.pt.service.LocationService;
@@ -15,19 +14,17 @@ public class InteractiveServiceFactory implements Factory<InteractiveService> {
     private ConnectionService connectionService;
     private LocationService locationService;
     private SlackApi slackApi;
-    private TransportApi transportApi;
 
     @Inject
-    public InteractiveServiceFactory(ConnectionService connectionService, LocationService locationService, SlackApi slackApi, TransportApi transportApi) {
+    public InteractiveServiceFactory(ConnectionService connectionService, LocationService locationService, SlackApi slackApi) {
         this.connectionService = connectionService;
         this.locationService = locationService;
         this.slackApi = slackApi;
-        this.transportApi = transportApi;
     }
 
     @Override
     public InteractiveService provide() {
-        return new ThreadedInteractiveService(connectionService, locationService, slackApi, transportApi);
+        return new ThreadedInteractiveService(connectionService, locationService, slackApi);
     }
 
     @Override

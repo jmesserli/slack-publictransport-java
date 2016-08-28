@@ -1,11 +1,9 @@
 package nu.peg.slack.pt.service.internal;
 
-import nu.peg.slack.pt.App;
 import nu.peg.slack.pt.api.slack.SlackApi;
 import nu.peg.slack.pt.api.slack.model.InteractivePayload;
 import nu.peg.slack.pt.api.slack.model.InteractivePostData;
 import nu.peg.slack.pt.api.slack.model.SlackMessage;
-import nu.peg.slack.pt.api.transport.TransportApi;
 import nu.peg.slack.pt.api.transport.model.Connection;
 import nu.peg.slack.pt.model.ConnectionRequest;
 import nu.peg.slack.pt.service.ConnectionService;
@@ -13,7 +11,6 @@ import nu.peg.slack.pt.service.InteractiveService;
 import nu.peg.slack.pt.service.LocationService;
 
 import javax.inject.Inject;
-
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -24,14 +21,12 @@ public class ThreadedInteractiveService implements InteractiveService {
     private ConnectionService connectionService;
     private LocationService locationService;
     private SlackApi slackApi;
-    private TransportApi transportApi;
 
     @Inject
-    public ThreadedInteractiveService(ConnectionService connectionService, LocationService locationService, SlackApi slackApi, TransportApi transportApi) {
+    public ThreadedInteractiveService(ConnectionService connectionService, LocationService locationService, SlackApi slackApi) {
         this.connectionService = connectionService;
         this.locationService = locationService;
         this.slackApi = slackApi;
-        this.transportApi = transportApi;
     }
 
     @Override
@@ -64,7 +59,7 @@ public class ThreadedInteractiveService implements InteractiveService {
             request.getLocations().choose(fromTo, Integer.parseInt(idx));
 
             if (!request.getLocations().isUnique()) {
-                SlackMessage refinementMessage = locationService.makeRefinementMessage(request.getLocations());
+                SlackMessage refinementMessage = locationService.makeRefinementMessage(request);
                 slackApi.sendResponse(interactiveData.getPayloadObject().getResponseUrl(), refinementMessage);
                 return;
             }

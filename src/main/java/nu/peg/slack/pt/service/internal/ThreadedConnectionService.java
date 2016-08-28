@@ -88,13 +88,13 @@ public class ThreadedConnectionService implements ConnectionService {
             }
 
             Locations locations = locationService.queryLocations(args.get(0), args.get(1));
+            ConnectionRequest request = new ConnectionRequest(locations, time, isArrivalTime);
             if (!locations.isUnique()) {
-                SlackMessage refinementMessage = locationService.makeRefinementMessage(locations);
+                SlackMessage refinementMessage = locationService.makeRefinementMessage(request);
                 slackApi.sendResponse(commandData.getResponseUrl(), refinementMessage);
                 return;
             }
 
-            ConnectionRequest request = new ConnectionRequest(locations, time, isArrivalTime);
             SlackMessage connectionOverviewMessage = makeConnectionOverview(request);
             slackApi.sendResponse(commandData.getResponseUrl(), connectionOverviewMessage);
         }

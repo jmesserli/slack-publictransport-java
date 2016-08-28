@@ -11,6 +11,8 @@ public class ActionAttachment implements Attachment {
 
     private String title;
 
+    private String text;
+
     @SerializedName("callback_id")
     @JsonProperty("callback_id")
     private String callbackId;
