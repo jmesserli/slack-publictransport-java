@@ -1,10 +1,9 @@
 package nu.peg.slack.pt.model;
 
+import lombok.Data;
 import nu.peg.slack.pt.api.transport.model.Location;
 
 import java.util.List;
-
-import lombok.Data;
 
 @Data
 public class Locations {

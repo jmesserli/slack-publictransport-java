@@ -1,20 +1,17 @@
 package nu.peg.slack.pt.endpoint;
 
+import com.google.gson.Gson;
 import nu.peg.slack.pt.App;
 import nu.peg.slack.pt.api.slack.SlackApi;
 import nu.peg.slack.pt.api.slack.model.CommandPostData;
+import nu.peg.slack.pt.api.slack.model.InteractivePostData;
 import nu.peg.slack.pt.model.Response;
 import nu.peg.slack.pt.service.ConnectionService;
+import nu.peg.slack.pt.service.InteractiveService;
 import nu.peg.slack.pt.service.OauthService;
 
 import javax.inject.Inject;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 
 import static javax.ws.rs.core.Response.Status;
 import static javax.ws.rs.core.Response.status;
@@ -25,13 +22,19 @@ public class SlackEndpoint {
 
     private OauthService oauthService;
     private ConnectionService connectionService;
+    private InteractiveService interactiveService;
     private SlackApi slackApi;
 
+    private Gson gson;
+
     @Inject
-    public SlackEndpoint(OauthService oauthService, ConnectionService connectionService, SlackApi slackApi) {
+    public SlackEndpoint(OauthService oauthService, ConnectionService connectionService, InteractiveService interactiveService, SlackApi slackApi) {
         this.oauthService = oauthService;
         this.connectionService = connectionService;
+        this.interactiveService = interactiveService;
         this.slackApi = slackApi;
+
+        this.gson = new Gson();
     }
 
     @GET
@@ -62,9 +65,15 @@ public class SlackEndpoint {
 
     @POST
     @Path("interactive")
-    public void interactive() {
-        // TODO call Service
+    public javax.ws.rs.core.Response interactive(@BeanParam InteractivePostData interactiveData) {
+        String token = interactiveData.getPayloadObject().getToken();
+        boolean validToken = App.validateToken(token);
 
-        return;
+        if (!validToken) {
+            return status(Status.UNAUTHORIZED).build();
+        }
+
+        interactiveService.handleInteractive(interactiveData);
+        return status(Status.OK).build();
     }
 }

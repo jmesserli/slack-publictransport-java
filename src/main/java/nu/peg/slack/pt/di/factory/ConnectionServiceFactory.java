@@ -5,7 +5,6 @@ import nu.peg.slack.pt.api.transport.TransportApi;
 import nu.peg.slack.pt.service.ConnectionService;
 import nu.peg.slack.pt.service.LocationService;
 import nu.peg.slack.pt.service.internal.ThreadedConnectionService;
-
 import org.glassfish.hk2.api.Factory;
 
 import javax.inject.Inject;

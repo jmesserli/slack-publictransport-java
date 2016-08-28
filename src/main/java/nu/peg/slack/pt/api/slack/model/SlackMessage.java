@@ -1,8 +1,8 @@
 package nu.peg.slack.pt.api.slack.model;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class SlackMessage {

@@ -4,9 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
 import nu.peg.slack.pt.service.OauthService;
-
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -39,8 +37,8 @@ public class DefaultOauthService implements OauthService {
         HttpResponse<JsonNode> jsonResponse = null;
         try {
             jsonResponse = Unirest.post("https://slack.com/api/oauth.access")
-                                  .fields(bodyParams)
-                                  .asJson();
+                    .fields(bodyParams)
+                    .asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }

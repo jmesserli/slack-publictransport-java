@@ -11,17 +11,13 @@ import nu.peg.slack.pt.model.Locations;
 import nu.peg.slack.pt.service.ConnectionService;
 import nu.peg.slack.pt.service.LocationService;
 import nu.peg.slack.pt.util.CommandParser;
-
 import org.jvnet.hk2.annotations.Service;
-import org.omg.CORBA.Request;
 
-import java.time.LocalDateTime;
+import javax.inject.Inject;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.inject.Inject;
 
 @Service
 public class ThreadedConnectionService implements ConnectionService {
@@ -45,6 +41,7 @@ public class ThreadedConnectionService implements ConnectionService {
 
     @Override
     public SlackMessage makeConnectionOverview(ConnectionRequest request) {
+        // Todo save connections to cache
         return null;
     }
 

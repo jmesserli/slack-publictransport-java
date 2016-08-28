@@ -1,8 +1,8 @@
 package nu.peg.slack.pt.api.transport.model;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Connection {

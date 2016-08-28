@@ -1,14 +1,12 @@
 package nu.peg.slack.pt.api.slack.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.ws.rs.FormParam;
-
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.ws.rs.FormParam;
 
 @Data
 @NoArgsConstructor

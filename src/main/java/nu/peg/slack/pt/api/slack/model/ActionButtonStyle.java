@@ -1,8 +1,7 @@
 package nu.peg.slack.pt.api.slack.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.annotations.SerializedName;
 
 public enum ActionButtonStyle {
 
