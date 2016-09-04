@@ -1,9 +1,10 @@
 package nu.peg.slack.pt.api.slack.model;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.Data;
 
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class InteractivePayload {

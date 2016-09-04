@@ -1,18 +1,15 @@
 package nu.peg.slack.pt.service.internal;
 
 import nu.peg.slack.pt.api.slack.SlackApi;
-import nu.peg.slack.pt.api.slack.model.InteractivePayload;
-import nu.peg.slack.pt.api.slack.model.InteractivePostData;
-import nu.peg.slack.pt.api.slack.model.SlackMessage;
+import nu.peg.slack.pt.api.slack.model.*;
 import nu.peg.slack.pt.api.transport.model.Connection;
 import nu.peg.slack.pt.model.ConnectionRequest;
-import nu.peg.slack.pt.service.ConnectionService;
-import nu.peg.slack.pt.service.InteractiveService;
-import nu.peg.slack.pt.service.LocationService;
+import nu.peg.slack.pt.service.*;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import javax.inject.Inject;
 
 import static nu.peg.slack.pt.App.*;
 
@@ -43,7 +40,7 @@ public class ThreadedInteractiveService implements InteractiveService {
         }
 
         private void handleLocationRefinement(String callbackId, String actionValue) {
-            ConnectionRequest request = null;
+            ConnectionRequest request;
             try {
                 request = connectionRequestCache.get(callbackId, () -> null);
             } catch (ExecutionException e) {
@@ -69,7 +66,7 @@ public class ThreadedInteractiveService implements InteractiveService {
         }
 
         private void handleOverviewSelection(String callbackId, String actionValue) {
-            List<Connection> connections = null;
+            List<Connection> connections;
             try {
                 connections = connectionsCache.get(callbackId, () -> null);
             } catch (ExecutionException e) {

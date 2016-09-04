@@ -2,6 +2,7 @@ package nu.peg.slack.pt.di.factory;
 
 import nu.peg.slack.pt.service.OauthService;
 import nu.peg.slack.pt.service.internal.DefaultOauthService;
+
 import org.glassfish.hk2.api.Factory;
 
 import static nu.peg.slack.pt.App.config;

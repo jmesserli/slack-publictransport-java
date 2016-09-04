@@ -8,8 +8,9 @@ import nu.peg.slack.pt.model.ConnectionRequest;
 import nu.peg.slack.pt.model.Locations;
 import nu.peg.slack.pt.service.LocationService;
 
-import javax.inject.Inject;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import static nu.peg.slack.pt.App.connectionRequestCache;
 

@@ -1,7 +1,7 @@
 package nu.peg.slack.pt.model;
 
 import static nu.peg.slack.pt.model.Status.Error;
-import static nu.peg.slack.pt.model.Status.Ok;
+import static nu.peg.slack.pt.model.Status.*;
 
 public class Response<T> {
 

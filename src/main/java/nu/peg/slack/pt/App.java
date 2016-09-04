@@ -2,16 +2,19 @@ package nu.peg.slack.pt;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+
 import com.mashape.unirest.http.Unirest;
+
 import nu.peg.slack.pt.api.transport.model.Connection;
 import nu.peg.slack.pt.model.ConnectionRequest;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 public class App implements ServletContextListener {
 

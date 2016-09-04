@@ -1,22 +1,19 @@
 package nu.peg.slack.pt.api.transport;
 
 import com.google.gson.Gson;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import nu.peg.slack.pt.api.transport.model.Connection;
-import nu.peg.slack.pt.api.transport.model.ConnectionsResponse;
-import nu.peg.slack.pt.api.transport.model.Location;
-import nu.peg.slack.pt.api.transport.model.LocationsResponse;
+
+import nu.peg.slack.pt.api.transport.model.*;
 import nu.peg.slack.pt.model.ConnectionRequest;
+
 import org.jvnet.hk2.annotations.Service;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TransportApi {
@@ -38,8 +35,8 @@ public class TransportApi {
 
         try {
             stringResponse = Unirest.get("http://transport.opendata.ch/v1/locations")
-                    .queryString("query", query)
-                    .asString();
+                                    .queryString("query", query)
+                                    .asString();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -53,7 +50,8 @@ public class TransportApi {
     }
 
     /**
-     * Convenience method for calling {@link #queryConnections(String, String, LocalTime, boolean)} using a {@link ConnectionRequest}
+     * Convenience method for calling {@link #queryConnections(String, String, LocalTime, boolean)}
+     * using a {@link ConnectionRequest}
      *
      * @param request The {@link ConnectionRequest} to take the data from
      */
@@ -104,8 +102,8 @@ public class TransportApi {
 
         try {
             stringResponse = Unirest.get("http://transport.opendata.ch/v1/connections")
-                    .queryString(queryParams)
-                    .asString();
+                                    .queryString(queryParams)
+                                    .asString();
         } catch (UnirestException e) {
             e.printStackTrace();
         }

@@ -22,8 +22,8 @@ public final class CommandParser {
 
 
         return arguments.stream()
-                .map(trimMatcher::trimFrom)
-                .filter(str -> !Strings.isNullOrEmpty(str))
-                .collect(Collectors.toList());
+                        .map(trimMatcher::trimFrom)
+                        .filter(str -> !Strings.isNullOrEmpty(str))
+                        .collect(Collectors.toList());
     }
 }

@@ -3,10 +3,8 @@ package nu.peg.slack.pt.di.binder;
 import nu.peg.slack.pt.api.slack.SlackApi;
 import nu.peg.slack.pt.api.transport.TransportApi;
 import nu.peg.slack.pt.di.factory.*;
-import nu.peg.slack.pt.service.ConnectionService;
-import nu.peg.slack.pt.service.InteractiveService;
-import nu.peg.slack.pt.service.LocationService;
-import nu.peg.slack.pt.service.OauthService;
+import nu.peg.slack.pt.service.*;
+
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 public class SlackBinder extends AbstractBinder {
