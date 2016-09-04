@@ -9,6 +9,7 @@ import nu.peg.slack.pt.api.transport.model.Connection;
 import nu.peg.slack.pt.model.ConnectionRequest;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class App implements ServletContextListener {
+
+    public static final DateTimeFormatter SIMPLE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     public static final String ACTION_LOCATION_REFINE_NAME = "locationRefinement";
     public static final String ACTION_OVERVIEW_SELECT_NAME = "overviewSelect";

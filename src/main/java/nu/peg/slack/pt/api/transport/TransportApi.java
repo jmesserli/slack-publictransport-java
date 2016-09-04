@@ -11,12 +11,16 @@ import nu.peg.slack.pt.model.ConnectionRequest;
 
 import org.jvnet.hk2.annotations.Service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
 public class TransportApi {
+
+    public static final String TRANSPORT_API_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssx";
+    public static final DateTimeFormatter TRANSPORT_API_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TRANSPORT_API_DATE_TIME_FORMAT);
 
     private Gson gson;
 
@@ -83,7 +87,7 @@ public class TransportApi {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("from", from);
         queryParams.put("to", to);
-        queryParams.put("date", localTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        queryParams.put("date", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         queryParams.put("time", localTime.format(DateTimeFormatter.ofPattern("HH:mm")));
         queryParams.put("isArrivalTime", isArrivalTime);
 

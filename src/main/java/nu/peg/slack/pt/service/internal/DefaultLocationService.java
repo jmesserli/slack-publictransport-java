@@ -16,8 +16,12 @@ import static nu.peg.slack.pt.App.connectionRequestCache;
 
 public class DefaultLocationService implements LocationService {
 
-    @Inject
     private TransportApi transportApi;
+
+    @Inject
+    public DefaultLocationService(TransportApi transportApi) {
+        this.transportApi = transportApi;
+    }
 
     @Override
     public Locations queryLocations(String from, String to) {
