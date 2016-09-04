@@ -1,5 +1,6 @@
 package nu.peg.slack.pt.service.internal;
 
+import nu.peg.slack.pt.App;
 import nu.peg.slack.pt.api.slack.SlackApi;
 import nu.peg.slack.pt.api.slack.model.*;
 import nu.peg.slack.pt.api.transport.TransportApi;
@@ -41,8 +42,15 @@ public class ThreadedConnectionService implements ConnectionService {
 
     @Override
     public SlackMessage makeConnectionOverview(ConnectionRequest request) {
-        // Todo save connections to cache
-        return null;
+        List<Connection> connections = transportApi.queryConnections(request);
+        ConnectionOverviewMessage message = new ConnectionOverviewMessage(request, connections);
+
+        String callbackId = String.format("%d%d", message.hashCode(), System.currentTimeMillis());
+        List<Attachment> messageAttachments = message.getAttachments();
+        ((ActionAttachment) messageAttachments.get(messageAttachments.size() - 1)).setCallbackId(callbackId);
+        App.connectionsCache.put(callbackId, connections);
+        
+        return message;
     }
 
     @Override

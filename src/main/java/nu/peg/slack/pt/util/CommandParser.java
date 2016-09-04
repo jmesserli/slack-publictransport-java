@@ -20,7 +20,6 @@ public final class CommandParser {
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) arguments.add(matcher.group());
 
-
         return arguments.stream()
                         .map(trimMatcher::trimFrom)
                         .filter(str -> !Strings.isNullOrEmpty(str))
