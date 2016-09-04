@@ -49,13 +49,13 @@ public class ThreadedConnectionService implements ConnectionService {
         List<Attachment> messageAttachments = message.getAttachments();
         ((ActionAttachment) messageAttachments.get(messageAttachments.size() - 1)).setCallbackId(callbackId);
         App.connectionsCache.put(callbackId, connections);
-        
+
         return message;
     }
 
     @Override
     public SlackMessage makeConnectionDetail(Connection connection) {
-        return null;
+        return new ConnectionDetailMessage(connection);
     }
 
     private class ConnectionServiceRunnable implements Runnable {
