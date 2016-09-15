@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public final class CommandParser {
 
-    private static final Pattern pattern = Pattern.compile("(\"([\\wäöüÄÖÜ, ]*)\"|([\\wäöüÄÖÜ,]*))");
+    private static final Pattern pattern = Pattern.compile("(\"([\\wäöüÄÖÜ,: ]*)\"|([\\wäöüÄÖÜ,:]*))");
     private static final CharMatcher trimMatcher = CharMatcher.is('"').or(CharMatcher.WHITESPACE);
 
     public static List<String> getArguments(String text) {
