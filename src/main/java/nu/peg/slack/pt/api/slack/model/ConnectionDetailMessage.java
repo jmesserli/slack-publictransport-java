@@ -43,15 +43,19 @@ public class ConnectionDetailMessage extends SlackMessage {
         String color = nextColor();
 
         List<AttachmentField> departureFields = new ArrayList<>();
-        departureFields.add(new AttachmentField("Von", section.getDeparture().getStation().getName(), false));
-        departureFields.add(new AttachmentField("Perron", section.getDeparture().getPlatform(), true));
+        boolean hasDeparturePerron = section.getDeparture().getPlatform() != null && !section.getDeparture().getPlatform().trim().isEmpty();
+        departureFields.add(new AttachmentField("Von", section.getDeparture().getStation().getName(), !hasDeparturePerron));
+        if (hasDeparturePerron)
+            departureFields.add(new AttachmentField("Perron", section.getDeparture().getPlatform(), hasDeparturePerron));
         departureFields.add(new AttachmentField("Abfahrt", Util.transportToSimpleTime(section.getDeparture().getDeparture()), true));
 
         Attachment departureAttachment = new ConnectionDetailAttachment(String.format("%s in Richtung %s", section.getJourney().getCategory(), section.getJourney().getTo()), color, departureFields);
 
         List<AttachmentField> arrivalFields = new ArrayList<>();
-        arrivalFields.add(new AttachmentField("Nach", section.getArrival().getStation().getName(), false));
-        arrivalFields.add(new AttachmentField("Perron", section.getArrival().getPlatform(), true));
+        boolean hasArrivalPerron = section.getArrival().getPlatform() != null && !section.getArrival().getPlatform().trim().isEmpty();
+        arrivalFields.add(new AttachmentField("Nach", section.getArrival().getStation().getName(), !hasArrivalPerron));
+        if (hasArrivalPerron)
+            arrivalFields.add(new AttachmentField("Perron", section.getArrival().getPlatform(), hasArrivalPerron));
         arrivalFields.add(new AttachmentField("Ankunft", Util.transportToSimpleTime(section.getArrival().getArrival()), true));
 
         Attachment arrivalAttachment = new ConnectionDetailAttachment(null, color, arrivalFields);
