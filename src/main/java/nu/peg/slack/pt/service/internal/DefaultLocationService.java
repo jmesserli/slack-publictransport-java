@@ -7,6 +7,7 @@ import nu.peg.slack.pt.api.transport.model.Location;
 import nu.peg.slack.pt.model.ConnectionRequest;
 import nu.peg.slack.pt.model.Locations;
 import nu.peg.slack.pt.service.LocationService;
+import nu.peg.slack.pt.util.Util;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class DefaultLocationService implements LocationService {
             options = locations.getToOptions();
         }
 
-        String callbackId = String.format("%d%d", request.hashCode(), System.currentTimeMillis());
+        String callbackId = Util.makeCallbackId(request);
         connectionRequestCache.put(callbackId, request);
 
         return new RefinementMessage(uncertainInput, fromTo, options, callbackId);

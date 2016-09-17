@@ -10,6 +10,7 @@ import nu.peg.slack.pt.model.Locations;
 import nu.peg.slack.pt.service.ConnectionService;
 import nu.peg.slack.pt.service.LocationService;
 import nu.peg.slack.pt.util.CommandParser;
+import nu.peg.slack.pt.util.Util;
 
 import org.jvnet.hk2.annotations.Service;
 
@@ -45,7 +46,7 @@ public class ThreadedConnectionService implements ConnectionService {
         List<Connection> connections = transportApi.queryConnections(request);
         ConnectionOverviewMessage message = new ConnectionOverviewMessage(request, connections);
 
-        String callbackId = String.format("%d%d", message.hashCode(), System.currentTimeMillis());
+        String callbackId = Util.makeCallbackId(message);
         List<Attachment> messageAttachments = message.getAttachments();
         ((ActionAttachment) messageAttachments.get(messageAttachments.size() - 1)).setCallbackId(callbackId);
         App.connectionsCache.put(callbackId, connections);

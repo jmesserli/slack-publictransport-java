@@ -13,7 +13,7 @@ import org.jvnet.hk2.annotations.Service;
 @Service
 public class SlackApi {
 
-    private Gson gson;
+    protected Gson gson;
 
     public SlackApi() {
         gson = new Gson();

@@ -14,9 +14,6 @@ import static nu.peg.slack.pt.App.ACTION_OVERVIEW_SELECT_NAME;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ConnectionOverviewMessage extends SlackMessage {
-
-    private final String color = "#fff";
-
     public ConnectionOverviewMessage(ConnectionRequest connectionRequest, List<Connection> connections) {
         setText(String.format("Ihre Verbindungen von *%s nach %s*:", connectionRequest.getLocations().getFrom().getName(), connectionRequest.getLocations().getTo().getName()));
         setAttachments(new ArrayList<>());
