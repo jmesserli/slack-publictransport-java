@@ -1,10 +1,9 @@
 package nu.peg.slack.pt.di.factory;
 
 import nu.peg.slack.pt.api.slack.SlackApi;
-import nu.peg.slack.pt.service.ConnectionService;
-import nu.peg.slack.pt.service.InteractiveService;
-import nu.peg.slack.pt.service.LocationService;
+import nu.peg.slack.pt.service.*;
 import nu.peg.slack.pt.service.internal.ThreadedInteractiveService;
+
 import org.glassfish.hk2.api.Factory;
 
 import javax.inject.Inject;

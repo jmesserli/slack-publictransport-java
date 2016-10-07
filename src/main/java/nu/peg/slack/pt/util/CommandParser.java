@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public final class CommandParser {
 
-    private static final Pattern pattern = Pattern.compile("(\"([\\wäöüÄÖÜ, ]*)\"|([\\wäöüÄÖÜ,]*))");
+    private static final Pattern pattern = Pattern.compile("(\"([\\wäöüÄÖÜ,: ]*)\"|([\\wäöüÄÖÜ,:]*))");
     private static final CharMatcher trimMatcher = CharMatcher.is('"').or(CharMatcher.WHITESPACE);
 
     public static List<String> getArguments(String text) {
@@ -20,10 +20,9 @@ public final class CommandParser {
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) arguments.add(matcher.group());
 
-
         return arguments.stream()
-                .map(trimMatcher::trimFrom)
-                .filter(str -> !Strings.isNullOrEmpty(str))
-                .collect(Collectors.toList());
+                        .map(trimMatcher::trimFrom)
+                        .filter(str -> !Strings.isNullOrEmpty(str))
+                        .collect(Collectors.toList());
     }
 }

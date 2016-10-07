@@ -1,9 +1,8 @@
 package nu.peg.slack.pt.service.internal;
 
+import nu.peg.slack.pt.App;
 import nu.peg.slack.pt.api.slack.SlackApi;
-import nu.peg.slack.pt.api.slack.model.CommandPostData;
-import nu.peg.slack.pt.api.slack.model.ErrorMessage;
-import nu.peg.slack.pt.api.slack.model.SlackMessage;
+import nu.peg.slack.pt.api.slack.model.*;
 import nu.peg.slack.pt.api.transport.TransportApi;
 import nu.peg.slack.pt.api.transport.model.Connection;
 import nu.peg.slack.pt.model.ConnectionRequest;
@@ -11,13 +10,16 @@ import nu.peg.slack.pt.model.Locations;
 import nu.peg.slack.pt.service.ConnectionService;
 import nu.peg.slack.pt.service.LocationService;
 import nu.peg.slack.pt.util.CommandParser;
+import nu.peg.slack.pt.util.Util;
+
 import org.jvnet.hk2.annotations.Service;
 
-import javax.inject.Inject;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.inject.Inject;
 
 @Service
 public class ThreadedConnectionService implements ConnectionService {
@@ -41,13 +43,20 @@ public class ThreadedConnectionService implements ConnectionService {
 
     @Override
     public SlackMessage makeConnectionOverview(ConnectionRequest request) {
-        // Todo save connections to cache
-        return null;
+        List<Connection> connections = transportApi.queryConnections(request);
+        ConnectionOverviewMessage message = new ConnectionOverviewMessage(request, connections);
+
+        String callbackId = Util.makeCallbackId(message);
+        List<Attachment> messageAttachments = message.getAttachments();
+        ((ActionAttachment) messageAttachments.get(messageAttachments.size() - 1)).setCallbackId(callbackId);
+        App.connectionsCache.put(callbackId, connections);
+
+        return message;
     }
 
     @Override
     public SlackMessage makeConnectionDetail(Connection connection) {
-        return null;
+        return new ConnectionDetailMessage(connection);
     }
 
     private class ConnectionServiceRunnable implements Runnable {

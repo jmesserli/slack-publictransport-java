@@ -1,25 +1,26 @@
 package nu.peg.slack.pt.api.transport;
 
 import com.google.gson.Gson;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import nu.peg.slack.pt.api.transport.model.Connection;
-import nu.peg.slack.pt.api.transport.model.ConnectionsResponse;
-import nu.peg.slack.pt.api.transport.model.Location;
-import nu.peg.slack.pt.api.transport.model.LocationsResponse;
+
+import nu.peg.slack.pt.api.transport.model.*;
 import nu.peg.slack.pt.model.ConnectionRequest;
+
 import org.jvnet.hk2.annotations.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TransportApi {
+
+    public static final String TRANSPORT_API_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssx";
+    public static final DateTimeFormatter TRANSPORT_API_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TRANSPORT_API_DATE_TIME_FORMAT);
 
     private Gson gson;
 
@@ -38,8 +39,8 @@ public class TransportApi {
 
         try {
             stringResponse = Unirest.get("http://transport.opendata.ch/v1/locations")
-                    .queryString("query", query)
-                    .asString();
+                                    .queryString("query", query)
+                                    .asString();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -53,7 +54,8 @@ public class TransportApi {
     }
 
     /**
-     * Convenience method for calling {@link #queryConnections(String, String, LocalTime, boolean)} using a {@link ConnectionRequest}
+     * Convenience method for calling {@link #queryConnections(String, String, LocalTime, boolean)}
+     * using a {@link ConnectionRequest}
      *
      * @param request The {@link ConnectionRequest} to take the data from
      */
@@ -85,7 +87,7 @@ public class TransportApi {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("from", from);
         queryParams.put("to", to);
-        queryParams.put("date", localTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        queryParams.put("date", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         queryParams.put("time", localTime.format(DateTimeFormatter.ofPattern("HH:mm")));
         queryParams.put("isArrivalTime", isArrivalTime);
 
@@ -104,8 +106,8 @@ public class TransportApi {
 
         try {
             stringResponse = Unirest.get("http://transport.opendata.ch/v1/connections")
-                    .queryString(queryParams)
-                    .asString();
+                                    .queryString(queryParams)
+                                    .asString();
         } catch (UnirestException e) {
             e.printStackTrace();
         }

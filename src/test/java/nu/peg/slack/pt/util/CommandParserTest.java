@@ -8,10 +8,10 @@ public class CommandParserTest {
 
     @Test
     public void testGetArguments() throws Exception {
-        String input = "\"bern bahnhof\" sulgenau     \" bern\"";
+        String input = "\"bern bahnhof\" sulgenau     \" bern\" 12:30ab";
 
         assertThat(CommandParser.getArguments(input))
-                .containsExactly("bern bahnhof", "sulgenau", "bern")
+                .containsExactly("bern bahnhof", "sulgenau", "bern", "12:30ab")
                 .inOrder();
     }
 }

@@ -1,10 +1,11 @@
 package nu.peg.slack.pt.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import nu.peg.slack.pt.api.transport.model.Location;
 
 import java.util.List;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

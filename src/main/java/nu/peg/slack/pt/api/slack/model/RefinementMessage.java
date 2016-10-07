@@ -2,9 +2,7 @@ package nu.peg.slack.pt.api.slack.model;
 
 import nu.peg.slack.pt.api.transport.model.Location;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static nu.peg.slack.pt.App.ACTION_LOCATION_REFINE_NAME;
 

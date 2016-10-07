@@ -1,10 +1,12 @@
 package nu.peg.slack.pt.api.slack.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
-import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class ActionAttachment implements Attachment {
