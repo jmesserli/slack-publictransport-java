@@ -1,0 +1,36 @@
+package nu.peg.slack.pt.api.slack
+
+import com.google.gson.Gson
+
+import com.mashape.unirest.http.HttpResponse
+import com.mashape.unirest.http.Unirest
+import com.mashape.unirest.http.exceptions.UnirestException
+
+import nu.peg.slack.pt.api.slack.model.SlackMessage
+
+import org.jvnet.hk2.annotations.Service
+
+@Service
+open class SlackApi {
+
+    protected var gson: Gson
+
+    init {
+        gson = Gson()
+    }
+
+    open fun sendResponse(responseUrl: String, message: SlackMessage): Boolean {
+        var stringResponse: HttpResponse<String>? = null
+
+        try {
+            stringResponse = Unirest.post(responseUrl)
+                    .body(gson.toJson(message))
+                    .asString()
+        } catch (e: UnirestException) {
+            e.printStackTrace()
+        }
+
+        return stringResponse != null && stringResponse!!.getStatus() === 200
+    }
+
+}

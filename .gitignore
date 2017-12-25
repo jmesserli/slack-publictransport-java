@@ -1,5 +1,12 @@
-.idea/
-target/
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
-**/config.properties
-src/main/resources/rebel.xml
+*.ipr
+
+application.properties
+out/

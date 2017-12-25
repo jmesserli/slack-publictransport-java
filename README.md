@@ -31,9 +31,7 @@ For the final part, open the `Basic Information` page for your Slack app. You sh
 After that you also have to update the `Client ID` in `src/main/webapp/index.jsp`:
 
 ```html
-<!-- ... -->
 <a href="https://slack.com/oauth/authorize?scope=commands&client_id=<Your client id here>">
-<!-- ... -->
 ```
 
 Run a Maven install and redeploy your app. By visiting `$BASE` and clicking on the Slack button, you should be able to add the application to your team's Slack. Congratulations! ​:smiley:​
